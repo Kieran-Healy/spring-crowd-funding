@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css" type="text/css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title th:text="#{index.title}"></title>
+</head>
+<body>
+<h1><span th:text="#{register.hello}"></span></h1>
+<nav class="navbar navbar-default">
+	<ul class="nav navbar-nav">
+	<li><a th:href="@{/index}" id="loginbutton"><span th:text="#{index.index}"></span></a></li>
+	</ul>
+</nav>
+<form id="registerForm" method="post" th:action="@{/register}" th:object="${user}">
+<div class="form-group">
+<span th:text="#{register.email}"></span><input type="text" class="form-control" th:field="*{userEmail}"/><br>
+<span th:text="#{register.password}"></span><input type="password" class="form-control"  th:field="*{userPassword}"/><br>
+<span th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}" >Error</span> <br>
+<input type="submit" class="btn btn-default" th:value="#{register.submit}"/>
+</div>
+</form>
+</body>
+<footer>
+<a th:href="@{newProject?lang=de}">German</a>
+<a th:href="@{newProject?lang=uk}">English</a>
+</footer>
+</html>

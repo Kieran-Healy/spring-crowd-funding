@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css" type="text/css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title th:text="#{index.title}"></title>
+</head>
+<body>
+<h1><span th:text="#{newProject.hello}"></span></h1>
+<nav class="navbar navbar-default">
+	<ul class="nav navbar-nav">
+	<li><a th:if="${session.loggedin} != null" th:href="@{/logout}" id="loginbutton"><span th:text="#{index.logout}"></span></a></li>
+	<li><a th:if="${session.loggedin} == null" th:href="@{/login}"  id="loginbutton"><span th:text="#{index.login}"></span></a></li>
+	<li><a th:if="${session.loggedin} == null" th:href="@{/register}" id="loginbutton"><span th:text="#{index.register}"></span></a></li>
+	<li><a th:if="${session.loggedin} != null" th:href="@{/myProjects}" id="loginbutton"><span th:text="#{index.myProjects}"></span></a></li>
+	<li><a th:href="@{/index}" id="loginbutton"><span th:text="#{index.index}"></span></a></li>
+	</ul>
+</nav>
+<form id="newProjectForm" method="post" th:action="@{/newProject}" th:object="${project}">
+<div class="form-group">
+<span th:text="#{newProject.name}"></span><input type="text" class="form-control" th:field="*{projectName}"/><br>
+<span th:text="#{newProject.desc}"></span><input type="text" class="form-control" th:field="*{projectDesc}"/><br>
+<span th:text="#{newProject.target}"></span><input type="text" class="form-control" th:field="*{projectTarget}"/>
+<span th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}" >Error</span> <br>
+<input type="submit" class="btn btn-default" th:value="#{newProject.submit}"/>
+</div>
+</form>
+</body>
+<footer>
+<a th:href="@{newProject?lang=de}">German</a>
+<a th:href="@{newProject?lang=uk}">English</a>
+</footer>
+</html>

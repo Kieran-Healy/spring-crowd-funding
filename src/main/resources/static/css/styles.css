@@ -1,5 +1,5 @@
 @charset "UTF-8";
 
-h1, th, td {	
-	font-family:"Arial Rounded MT"; 
-}
+h1{
+	color:navy;
+} /* most of css is got though bootstrap */

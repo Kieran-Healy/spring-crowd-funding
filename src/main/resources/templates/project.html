@@ -7,18 +7,18 @@
 <title th:text="#{index.title}"></title>
 </head>
 <body>
-<h1><span th:text="#{index.hello}"></span></h1>
 <nav class="navbar navbar-default">
 <ul class="nav navbar-nav">
 	<li><a th:if="${session.loggedin} != null" th:href="@{/logout}" id="loginbutton"><span th:text="#{index.logout}"></span></a></li>
 	<li><a th:if="${session.loggedin} != null" th:href="@{/newProject}" id="loginbutton"><span th:text="#{index.newProject}"></span></a></li>
 	<li><a th:if="${session.loggedin} == null" th:href="@{/login}"  id="loginbutton"><span th:text="#{index.login}"></span></a></li>
 	<li><a th:if="${session.loggedin} == null" th:href="@{/register}" id="loginbutton"><span th:text="#{index.register}"></span></a></li>
+	<li><a th:href="@{/index}" id="loginbutton"><span th:text="#{index.index}"></span></a></li>
 	<li><a th:if="${session.loggedin} != null" th:href="@{/myProjects}" id="loginbutton"><span th:text="#{index.myProjects}"></span></a></li>
 	</ul>
-</nav>
-
-	<table class="table table-bordered">
+	</nav>
+	
+		<table class="table table-bordered">
 		<tr>
 			<th><span th:text="#{index.id}"></span></th>
 			<th><span th:text="#{index.date}"></span></th>
@@ -26,23 +26,46 @@
 			<th><span th:text="#{index.desc}"></span></th>
 			<th><span th:text="#{index.target}"></span></th>
 			<th><span th:text="#{index.amount}"></span></th>
+			<th><span th:text="#{project.users}"></span></th>
+			<th><span th:text="#{project.enabled}"></span></th>
 		</tr>
-			
-		<tr th:each="project,iterationCount : ${projects}" 
-			th:class="${iterationCount.odd}? 'odd'"
-			th:object="${project}">
-			<td><a th:if="${session.loggedin} != null" th:href="@{/project/} + *{projectId}" id="loginbutton"><span th:text="*{projectId}"></span></a><span th:text="*{projectId}"></span></td>			
+		<tr th:object="${project}">
+			<td th:text="*{projectId}"></td>
 			<td th:text="*{startDate}"></td>
 			<td th:text="*{projectName}"></td>
 			<td th:text="*{projectDesc}"></td>
 			<td th:text="*{projectTarget}"></td>
 			<td th:text="*{currentAmount}"></td>
+		    <td th:text="*{founder.userEmail}"></td> 
+			<td th:text="*{enabled}"></td>
 		</tr>
 	</table>
-
+	
+	
+	<table class="table table-bordered">
+		<tr>
+			<th><span th:text="#{pledge.user}"></span></th>
+			<th><span th:text="#{pledge.amount}"></span></th>
+		</tr>
+			
+		<tr th:each="project,iterationCount : ${project.pledge}" 
+			th:class="${iterationCount.odd}? 'odd'"
+			th:object="${project}">
+			<td th:text="*{user.userEmail}"></td>
+			<td th:text="*{amount}"></td>
+		</tr>
+	</table>
+	
+	
+	<div th:object="${project}">
+	<div th:if="*{enabled} == true">
+	<a th:if="${session.loggedin} != null" th:href="@{/project/} + *{projectId} + @{/pledge}" id="loginbutton"><span th:text="#{pledge.hello}"></span></a>
+	</div>
+	<a th:if="${session.loggedin} != null" th:href="@{/project/} + *{projectId} + @{/edit}" id="loginbutton"><span th:text="#{project.edit}"></span></a>
+	</div>
 </body>
 <footer>
-	<a th:href="@{index?lang=de}">German</a>
-	<a th:href="@{index?lang=uk}">English</a>
+<a th:href="@{project?lang=de}">German</a>
+<a th:href="@{project?lang=uk}">English</a>
 </footer>
 </html>

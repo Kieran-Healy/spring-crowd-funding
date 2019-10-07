@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css" type="text/css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title th:text="#{index.title}"></title>
+</head>
+<body>
+<h1><span th:text="#{pledge.hello}"></span></h1>
+<nav class="navbar navbar-default">
+	<ul class="nav navbar-nav">
+	<li><a th:if="${session.loggedin} != null" th:href="@{/logout}" id="loginbutton"><span th:text="#{index.logout}"></span></a></li>
+	<li><a th:if="${session.loggedin} != null" th:href="@{/newProject}" id="loginbutton"><span th:text="#{index.newProject}"></span></a></li>
+	<li><a th:if="${session.loggedin} == null" th:href="@{/login}"  id="loginbutton"><span th:text="#{index.login}"></span></a></li>
+	<li><a th:if="${session.loggedin} == null" th:href="@{/register}" id="loginbutton"><span th:text="#{index.register}"></span></a></li>
+	<li><a th:href="@{/index}" id="loginbutton"><span th:text="#{index.index}"></span></a></li>
+	</ul>
+</nav>
+<form id="newPledgeForm" method="post" th:action="@{/project/{id}/pledge}" th:object="${pledge}">
+<div class="form-group">
+<span th:text="#{pledge.amount}"></span><input type="text" class="form-control" th:field="*{amount}"/><br>
+<span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" >Error</span> <br>
+<input type="submit" class="btn btn-default" th:value="#{pledge.submit}"/>
+</div>
+</form>
+</body>
+</html>

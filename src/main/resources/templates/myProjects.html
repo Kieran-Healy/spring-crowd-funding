@@ -7,18 +7,16 @@
 <title th:text="#{index.title}"></title>
 </head>
 <body>
-<h1><span th:text="#{index.hello}"></span></h1>
 <nav class="navbar navbar-default">
 <ul class="nav navbar-nav">
 	<li><a th:if="${session.loggedin} != null" th:href="@{/logout}" id="loginbutton"><span th:text="#{index.logout}"></span></a></li>
 	<li><a th:if="${session.loggedin} != null" th:href="@{/newProject}" id="loginbutton"><span th:text="#{index.newProject}"></span></a></li>
 	<li><a th:if="${session.loggedin} == null" th:href="@{/login}"  id="loginbutton"><span th:text="#{index.login}"></span></a></li>
 	<li><a th:if="${session.loggedin} == null" th:href="@{/register}" id="loginbutton"><span th:text="#{index.register}"></span></a></li>
-	<li><a th:if="${session.loggedin} != null" th:href="@{/myProjects}" id="loginbutton"><span th:text="#{index.myProjects}"></span></a></li>
+	<li><a th:href="@{/index}" id="loginbutton"><span th:text="#{index.index}"></span></a></li>
 	</ul>
-</nav>
-
-	<table class="table table-bordered">
+	</nav>
+<table class="table table-bordered">
 		<tr>
 			<th><span th:text="#{index.id}"></span></th>
 			<th><span th:text="#{index.date}"></span></th>
@@ -31,7 +29,7 @@
 		<tr th:each="project,iterationCount : ${projects}" 
 			th:class="${iterationCount.odd}? 'odd'"
 			th:object="${project}">
-			<td><a th:if="${session.loggedin} != null" th:href="@{/project/} + *{projectId}" id="loginbutton"><span th:text="*{projectId}"></span></a><span th:text="*{projectId}"></span></td>			
+			<td><a th:if="${session.loggedin} != null" th:href="@{/project/} + *{projectId}" id="loginbutton"><span th:text="*{projectId}"></span></a></td>			
 			<td th:text="*{startDate}"></td>
 			<td th:text="*{projectName}"></td>
 			<td th:text="*{projectDesc}"></td>
@@ -39,10 +37,5 @@
 			<td th:text="*{currentAmount}"></td>
 		</tr>
 	</table>
-
 </body>
-<footer>
-	<a th:href="@{index?lang=de}">German</a>
-	<a th:href="@{index?lang=uk}">English</a>
-</footer>
 </html>
